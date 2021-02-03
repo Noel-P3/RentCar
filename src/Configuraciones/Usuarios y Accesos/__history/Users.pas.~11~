@@ -1,0 +1,84 @@
+unit Users;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, Uni,
+  Vcl.Grids, Vcl.DBGrids, CRGrid, Vcl.ExtCtrls, Vcl.StdCtrls, AdvEdit, DBAdvEd;
+
+type
+  TFrmUsers = class(TForm)
+    pnlLeft: TPanel;
+    CRDBGrid1: TCRDBGrid;
+    qUsers: TUniQuery;
+    DsUsers: TDataSource;
+    DBAdvEdit1: TDBAdvEdit;
+    Label1: TLabel;
+    qUsersID: TIntegerField;
+    qUsersNOMBRES: TStringField;
+    qUsersAPELLIDOS: TStringField;
+    qUsersUSUARIO: TStringField;
+    qUsersCORREO: TStringField;
+    qUsersPASSWORD: TStringField;
+    DBAdvEdit2: TDBAdvEdit;
+    DBAdvEdit3: TDBAdvEdit;
+    DBAdvEdit4: TDBAdvEdit;
+    DBAdvEdit5: TDBAdvEdit;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure qUsersBeforePost(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmUsers: TFrmUsers;
+
+implementation
+
+uses
+  DataModule, MainForm;
+
+{$R *.dfm}
+
+procedure TFrmUsers.FormActivate(Sender: TObject);
+begin
+  frmMainForm.dsMain.DataSet := qUsers;
+end;
+
+procedure TFrmUsers.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmMainForm.dsMain.DataSet := nil;
+  Action := caFree;
+end;
+
+procedure TFrmUsers.FormShow(Sender: TObject);
+begin
+  qUsers.Open;
+end;
+
+procedure TFrmUsers.qUsersBeforePost(DataSet: TDataSet);
+begin
+  if ((qUsersNOMBRES.AsString  = '') and
+     (qUsersAPELLIDOS.AsString = '') and
+     (qUsersUSUARIO.AsString   = '') and
+     (qUsersCORREO.AsString    = '') and
+     (qUsersPASSWORD.AsString  = ''))
+  then
+  begin
+    Application.MessageBox('Faltan campos por completar...' + #13#10#13#10
+      + 'Se detendra el proceso', frmMainForm.error, MB_OK +
+      MB_ICONSTOP);
+
+    Abort;
+
+  end;
+
+end;
+
+end.

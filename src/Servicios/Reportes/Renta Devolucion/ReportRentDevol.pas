@@ -1,0 +1,309 @@
+unit ReportRentDevol;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, AdvEdit, Vcl.ExtCtrls,
+  Vcl.ComCtrls, AdvDateTimePicker, AdvGlowButton, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, CRGrid, MemDS, DBAccess, Uni, frxClass, frxDBSet, frxExportCSV,
+  frxExportPDF;
+
+type
+  TfrmReportRentDevol = class(TForm)
+    Panel1: TPanel;
+    pnlGrupo: TPanel;
+    btnConsultar: TAdvGlowButton;
+    Panel2: TPanel;
+    dtpFechaRenta: TAdvDateTimePicker;
+    dtpFechaDevolucion: TAdvDateTimePicker;
+    rgEstado: TRadioGroup;
+    Panel4: TPanel;
+    rgEmpleado: TRadioGroup;
+    edtEmpleado: TAdvEdit;
+    btnEmpleado: TAdvGlowButton;
+    Panel5: TPanel;
+    rgVehiculo: TRadioGroup;
+    edtVehiculo: TAdvEdit;
+    btnVehiculo: TAdvGlowButton;
+    Panel6: TPanel;
+    rgClientes: TRadioGroup;
+    edtCliente: TAdvEdit;
+    btnCliente: TAdvGlowButton;
+    crdbgrdDetalle: TCRDBGrid;
+    qData: TUniQuery;
+    DsData: TDataSource;
+    QBackUp: TUniQuery;
+    qDataCODIGO: TIntegerField;
+    qDataCLIENTES: TStringField;
+    qDataVEHICULOS: TStringField;
+    qDataEMPLEADOS: TStringField;
+    qDataFECHA_RENTA: TDateField;
+    qDataFECHA_DEVOLUCION: TDateField;
+    qDataDIAS: TIntegerField;
+    qDataMONTOXDIA: TSingleField;
+    qDataESTADO: TStringField;
+    frxData: TfrxReport;
+    frxDBDsData: TfrxDBDataset;
+    frxPDFExport1: TfrxPDFExport;
+    frxCSVExport1: TfrxCSVExport;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure btnConsultarClick(Sender: TObject);
+    procedure rgClientesClick(Sender: TObject);
+    procedure btnClienteClick(Sender: TObject);
+    procedure rgVehiculoClick(Sender: TObject);
+    procedure btnVehiculoClick(Sender: TObject);
+    procedure rgEmpleadoClick(Sender: TObject);
+    procedure btnEmpleadoClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure FormDeactivate(Sender: TObject);
+    procedure crdbgrdDetalleDblClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure consultar;
+    procedure fecha;
+    procedure Imprime(Tprint : boolean);
+
+    var
+    Fecha_Desde,Fecha_Hasta,sql_cliente,sql_vehiculo,sql_empleado : string;
+  public
+    { Public declarations }
+    procedure Print(Sender : TObject);
+    procedure Preview(Sender : TObject);
+  end;
+
+var
+  frmReportRentDevol: TfrmReportRentDevol;
+
+implementation
+
+uses
+  Busqueda, DataModule, MainForm, RentaDevolucion;
+
+{$R *.dfm}
+
+procedure TfrmReportRentDevol.btnClienteClick(Sender: TObject);
+begin
+  try
+    Application.CreateForm(TfrmBusqueda, frmBusqueda);
+
+    frmBusqueda.Caption := 'Busqueda de Clientes';
+
+    frmBusqueda.Tabla := 'CLIENTES';
+    frmBusqueda.Campos := 'ID AS CODIGO, NOMBRES, APELLIDOS,CEDULA,TIPO_PERSONA';
+    frmBusqueda.Order := 'ORDER BY ID ASC';
+    frmBusqueda.Campo_Busqueda := 'NOMBRES';
+
+    if frmBusqueda.ShowModal = mrOk then
+    begin
+      sql_cliente := 'AND C.ID = '+frmBusqueda.qUnquery.Fields[0].AsString;
+      edtCliente.Text := frmBusqueda.qUnquery.Fields[1].AsString;
+    end;
+  finally
+    FreeAndNil(frmBusqueda);
+  end;
+end;
+
+procedure TfrmReportRentDevol.btnConsultarClick(Sender: TObject);
+begin
+  consultar;
+end;
+
+procedure TfrmReportRentDevol.btnEmpleadoClick(Sender: TObject);
+begin
+  try
+    Application.CreateForm(TfrmBusqueda, frmBusqueda);
+
+    frmBusqueda.Caption := 'Busqueda de Empleados';
+
+    frmBusqueda.Tabla := 'EMPLEADOS';
+    frmBusqueda.Campos := 'ID AS CODIGO, NOMBRES, APELLIDOS,CEDULA';
+    frmBusqueda.Order := 'ORDER BY ID ASC';
+    frmBusqueda.Campo_Busqueda := 'NOMBRES';
+
+    if frmBusqueda.ShowModal = mrOk then
+    begin
+      sql_empleado := 'AND E.ID = '+frmBusqueda.qUnquery.Fields[0].AsString;
+      edtEmpleado.Text := frmBusqueda.qUnquery.Fields[1].AsString;
+    end;
+  finally
+    FreeAndNil(frmBusqueda);
+  end;
+end;
+
+procedure TfrmReportRentDevol.btnVehiculoClick(Sender: TObject);
+begin
+  try
+    Application.CreateForm(TfrmBusqueda, frmBusqueda);
+
+    frmBusqueda.Caption := 'Busqueda de Vehículos';
+
+    frmBusqueda.Tabla := 'VEHICULOS';
+    frmBusqueda.Campos := 'ID AS CODIGO, DESCRIPCION, CHASIS,PLACA,MOTOR';
+    frmBusqueda.Order := 'ORDER BY ID ASC';
+    frmBusqueda.Campo_Busqueda := 'DESCRIPCION';
+
+    if frmBusqueda.ShowModal = mrOk then
+    begin
+      sql_vehiculo := 'AND V.ID = '+frmBusqueda.qUnquery.Fields[0].AsString;
+      edtVehiculo.Text := frmBusqueda.qUnquery.Fields[1].AsString;
+    end;
+  finally
+    FreeAndNil(frmBusqueda);
+  end;
+end;
+
+procedure TfrmReportRentDevol.consultar;
+var
+sql_estado : string;
+begin
+  fecha;
+
+  case rgEstado.ItemIndex of
+    0:begin
+        sql_estado := '';
+      end;
+    1:begin
+        sql_estado := 'AND RD.ESTADO = 1';
+      end;
+    2:begin
+        sql_estado := 'AND RD.ESTADO = 0';
+      end;
+  end;
+
+  qData.Close;
+  qData.SQL.Clear;
+  qData.SQL.Text := QBackUp.SQL.Text;
+  qData.SQL.Add(Fecha_Desde);
+  qData.SQL.Add(Fecha_Hasta);
+  qData.SQL.Add(sql_cliente);
+  qData.SQL.Add(sql_vehiculo);
+  qData.SQL.Add(sql_empleado);
+  qData.SQL.Add(sql_estado);
+  qData.Open;
+end;
+
+procedure TfrmReportRentDevol.crdbgrdDetalleDblClick(Sender: TObject);
+var
+  Renta_Devolucion : TFrmRentaDevolucion;
+begin
+  Renta_Devolucion := TFrmRentaDevolucion.Create(Self,qDataCODIGO.AsInteger);
+  Renta_Devolucion.Show;
+end;
+
+procedure TfrmReportRentDevol.fecha;
+begin
+  Fecha_desde := 'WHERE FECHA_RENTA BETWEEN '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpFechaRenta.Date));
+  Fecha_hasta := 'and '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpFechaDevolucion.Date));
+end;
+
+procedure TfrmReportRentDevol.FormActivate(Sender: TObject);
+begin
+  frmMainForm.btprint.OnClick := Print;
+  frmMainForm.btpreview.OnClick := Preview;
+  frmMainForm.btprint.Enabled := true;
+  frmMainForm.btpreview.Enabled := true;
+  frmMainForm.btnExport.Enabled := true;
+  frmMainForm.dsMain.OnStateChange := nil;
+  frmMainForm.dsMain.DataSet := qData;
+  frmMainForm.Deshabilita;
+end;
+
+procedure TfrmReportRentDevol.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  frmMainForm.btprint.OnClick := nil;
+  frmMainForm.btpreview.OnClick := nil;
+  frmMainForm.btprint.Enabled := False;
+  frmMainForm.btpreview.Enabled := False;
+  frmMainForm.btnExport.Enabled := False;
+  frmMainForm.dsMain.OnStateChange := frmMainForm.dsMainStateChange;
+  frmMainForm.dsMain.DataSet := nil;
+
+  Action := caFree;
+end;
+
+procedure TfrmReportRentDevol.FormDeactivate(Sender: TObject);
+begin
+  frmMainForm.btnExport.Enabled := false;
+  frmMainForm.dsMain.OnStateChange := frmMainForm.dsMainStateChange;
+end;
+
+procedure TfrmReportRentDevol.FormShow(Sender: TObject);
+begin
+  dtpFechaRenta.Date :=  Date;
+  dtpFechaDevolucion.Date := Date;
+
+  consultar;
+end;
+
+procedure TfrmReportRentDevol.Imprime(Tprint: boolean);
+begin
+  frxData.Variables['FILTROS'] := QuotedStr('Consulta desde '+DateToStr(dtpFechaRenta.Date)+' hasta '+DateToStr(dtpFechaDevolucion.Date));
+  if Tprint then frxData.Print
+  else frxData.ShowReport();
+end;
+
+procedure TfrmReportRentDevol.Preview(Sender: TObject);
+begin
+  Imprime(false);
+end;
+
+procedure TfrmReportRentDevol.Print(Sender: TObject);
+begin
+  Imprime(true);
+end;
+
+procedure TfrmReportRentDevol.rgClientesClick(Sender: TObject);
+begin
+  case rgClientes.ItemIndex of
+    0:begin
+        btnCliente.Enabled := false;
+        edtCliente.Text := '';
+        sql_cliente := '';
+        edtCliente.ReadOnly := true;
+      end;
+    1:begin
+        btnCliente.Enabled := true;
+        edtCliente.ReadOnly := false;
+        btnClienteClick(self);
+      end;
+  end;
+end;
+
+procedure TfrmReportRentDevol.rgEmpleadoClick(Sender: TObject);
+begin
+  case rgEmpleado.ItemIndex of
+    0:begin
+        btnEmpleado.Enabled := false;
+        edtEmpleado.Text := '';
+        sql_empleado := '';
+        edtEmpleado.ReadOnly := true;
+      end;
+    1:begin
+        btnEmpleado.Enabled := true;
+        edtEmpleado.ReadOnly := false;
+        btnEmpleadoClick(self);
+      end;
+  end;
+end;
+
+procedure TfrmReportRentDevol.rgVehiculoClick(Sender: TObject);
+begin
+  case rgVehiculo.ItemIndex of
+    0:begin
+        btnVehiculo.Enabled := false;
+        edtVehiculo.Text := '';
+        sql_vehiculo := '';
+        edtVehiculo.ReadOnly := true;
+      end;
+    1:begin
+        btnVehiculo.Enabled := true;
+        edtVehiculo.ReadOnly := false;
+        btnVehiculoClick(self);
+      end;
+  end;
+end;
+
+end.

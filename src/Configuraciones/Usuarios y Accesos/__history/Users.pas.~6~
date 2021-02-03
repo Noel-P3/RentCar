@@ -1,0 +1,58 @@
+unit Users;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, Uni,
+  Vcl.Grids, Vcl.DBGrids, CRGrid, Vcl.ExtCtrls, Vcl.StdCtrls, AdvEdit, DBAdvEd;
+
+type
+  TFrmUsers = class(TForm)
+    pnlLeft: TPanel;
+    CRDBGrid1: TCRDBGrid;
+    qUsers: TUniQuery;
+    DsUsers: TDataSource;
+    DBAdvEdit1: TDBAdvEdit;
+    Label1: TLabel;
+    qUsersID: TIntegerField;
+    qUsersNOMBRES: TStringField;
+    qUsersAPELLIDOS: TStringField;
+    qUsersUSUARIO: TStringField;
+    qUsersCORREO: TStringField;
+    qUsersPASSWORD: TStringField;
+    DBAdvEdit2: TDBAdvEdit;
+    DBAdvEdit3: TDBAdvEdit;
+    DBAdvEdit4: TDBAdvEdit;
+    DBAdvEdit5: TDBAdvEdit;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmUsers: TFrmUsers;
+
+implementation
+
+uses
+  DataModule, MainForm;
+
+{$R *.dfm}
+
+procedure TFrmUsers.FormActivate(Sender: TObject);
+begin
+  frmMainForm.dsMain.DataSet := qUsers;
+end;
+
+procedure TFrmUsers.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmMainForm.dsMain.DataSet := nil;
+  Action := caFree;
+end;
+
+end.

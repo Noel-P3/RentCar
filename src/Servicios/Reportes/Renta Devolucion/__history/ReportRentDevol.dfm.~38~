@@ -1,0 +1,1143 @@
+object frmReportRentDevol: TfrmReportRentDevol
+  Left = 0
+  Top = 0
+  Caption = 'Consulta Renta Devoluci'#243'n'
+  ClientHeight = 460
+  ClientWidth = 923
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  Visible = True
+  WindowState = wsMaximized
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnDeactivate = FormDeactivate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 923
+    Height = 93
+    Align = alTop
+    TabOrder = 0
+    object pnlGrupo: TPanel
+      Left = 628
+      Top = 1
+      Width = 151
+      Height = 91
+      Hint = 'Grupo del Producto'
+      Align = alLeft
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      object rgEstado: TRadioGroup
+        Left = 1
+        Top = 1
+        Width = 149
+        Height = 89
+        Align = alTop
+        Caption = 'Estado'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Todos'
+          'Rentado'
+          'Devuelto')
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
+    object btnConsultar: TAdvGlowButton
+      Left = 781
+      Top = 1
+      Width = 141
+      Height = 91
+      Align = alRight
+      Caption = 'Consultar'
+      NotesFont.Charset = DEFAULT_CHARSET
+      NotesFont.Color = clWindowText
+      NotesFont.Height = -11
+      NotesFont.Name = 'Tahoma'
+      NotesFont.Style = []
+      Picture.Data = {
+        89504E470D0A1A0A0000000D49484452000000300000003008060000005702F9
+        870000001974455874536F6674776172650041646F626520496D616765526561
+        647971C9653C000007DC4944415478DAEC5A6B6C14D7153E333B3BFB98B577D7
+        8110A3523F304E6C8876504D203CD2C501A208121055D21FB85DFF4894488128
+        51D41F91F86135695A0C12AE5AF2A7C2194B95DA4A25A4520B014A302ED82150
+        652311235EC6E0C489017BDF0FEFECCCF4DCBB6B7BD7BBC6EBF5108CD46B1DED
+        CEEBDCFB9DF39DC79D35A3691A3CCC8385877C3CF400B8CC0386610A7A68CB0B
+        5B5D48BD66A7D3295ACC66F7238F94016F32D16BC37787211A8DF6DFBE73C70B
+        A075E27DD2917FFD33A0E7A23369CF641D4C03E0B9E79EF7E0A25B963DB9ACB2
+        AAB2124CB8E8EF878660646424E75EBC0F82C120F4F5F5C1E0B78392A2282DC7
+        8F7F7AF38100D8B06193CB2A08D2EAD54F8B754F3C01D7AE5D87DE4BBDB870DF
+        B493FC78D122B0582D70FBF61DF86660A0EDC489636FFFA0009EDDB0D1535353
+        233536AE875BB706C0EBF54228149EE994C0714688C5A2904C26BD388FFBF8B1
+        4F03F71DC0FAC6673DF5F5F5D233EBD64157D77FE0E6CDE219A0A527462A812C
+        CBFE645276779DEEFCEABE0178E6A76ECFD2A54BA5552B57C28913FF86E191E1
+        BCCA12890495CC61B3D9A644A1E19F92542021CB5E2599749F39D315980D002E
+        DF0DABD7AC73CD9FFFA8B46EED5A3874E8630885B32943ACE8F78DC082058FC2
+        CF5F7E09D04BE3D748E0F6F4F4C0B163C7C1C8F3200879C0A0A15896155596FD
+        84387A36F190D7036BD6ACFDB2A9A9493CD5D909C3C3D996C7148981F923D8B9
+        7327AC5AB5EA9ECA0F1E3C081F4912582D02B086EC92A3AA1AC6838CDE483677
+        779FEDD08D422B573EEDC134299539CBE0FC85F3590F06030104B71AF6EDDB47
+        EF452B52C9A41ED1474455552ABDBDBDB07BF76E0CFC4836089C5651693CF47F
+        DED35D552C003697A65A4B7D5D1D9C3B770E54451D9708D208D328B4B6B6D245
+        1B8D4630180C39813F068CE3382A7575F5D0DEDE0E7EBF2F4B1F014740E0FD95
+        3F6968F0E8D24A34343CE5AAAEAEAEECBD7489F27C4C643901151515F0BB3D7B
+        C812E9C2C72C7D2F21603823070206F5FEB6FD7077F84E965EE281943599B774
+        01A028C9E6F9F3E7C1C58B17A9F2312181F9FAEBAF51AB15D86D4C4C907E60C5
+        8A15D0D8D80832E17D5A2FD197062BBA5C62C5AC01A042311E8B53C599965AB8
+        70217A67C584EB6738B078D16777ECD841A998A95B559471107A00700F616F33
+        A69808C9F19BB76C468BA954E2A3A390C4F3858E08662D45493D5B5BFB38ED91
+        D40CFD34D8A9618A03C04DCEEFFDFDFDC090CC923E47F8FF786D2D4EA064E57A
+        8BD982CD1C8F94CADF91231DB17588918295757EC1630BE03AF6525986D31088
+        A63A660D404D5B99D5687A183FA7A6D362E60847C228407B1C8E9BC846C49A84
+        E75351ADAAB20AAE5CB99A5313D01BFA78802C446327AC3AC67B4283FC961E05
+        6455C1E3BBEF06E93C59A93B6538BF2E1EA09926A35090E360205854F0E68D89
+        4804162FAE86AB195E5052B1E0D5218D2AFD49E46E4A9454B0A2472EFCF7C238
+        B8D948002B39D9E04423D171FD642E25F5DDAF4716F2924E51A1D57222531C3D
+        7A34AB2E142B9D9DA7401497C38D1B37C675A7E6A3DF75F140E7580ACDCCD5C4
+        ED7FFBCB5F67ED818F0F1D0293D994538DF1D33F3070EBF4AC01900D38293AD4
+        AD19962385A6FDA376B87CF972763F3303F97D5B1B5A5F849EEE9E09DD843AA9
+        F93ED1A595181CFC36804A290865921742C110FCF6830F680D98A9E58F1C3902
+        49AC077D481DB231CAD29DA2509B6EFB8179F3E655E0977E9661F3F63DA5A5A5
+        F0EBF7DE07975858DAFEF0C01F49CF4FBD78F8F0E19C2DA6D956E21DE8BBBE5C
+        D72DA5D359B61F5BE2B75287B92804C10AEEF5EB61FBF69FC1E29A9A9CEB61EC
+        77BACF9E85AED3A791362EF81AF704A73E3B3569112AF04209BCDAFE772871D8
+        9B7FD5B0A443370064D8ED8E2FF158CC07C2E974D06D24E9FB47B18A914ABD64
+        492D2E3C44AF0F7D3F042E978B2EF2E4C9CF68D699BCEB20CF6C7AB7151A5E7C
+        09D844185835D9FCCEF2AA0EDD002055EC780D1B23C631D5FB22A7C309D5D555
+        505E5E0EE5D8B1D24A3B38083E9F0F776297C0E7F7E59B9D2EA0AA711B6C7C77
+        2FD8AC3C580C2A18943840225690270A7EAD621504177E4878562401C1CCB20A
+        6BE9B712E56BB6C0536FFE064A70F14408082BF6049C86DE8C85A70531A3175B
+        66B3C58E8F9034E726546298E217CF9A05786CDB2E58E4DE3ABEF8091046B01A
+        D982E854D4BB519EE73D786F0B7EAD646688826E2FCD366FE92FF6888E8A2550
+        5A22E40018F3442174BAE7A67EAA811B9B0E5996AB30AF3763DEF64EAE135388
+        9FD4150C583111F22D971973737078046B491842D1448E8451620A0B2A6705D6
+        6293F65EB8EA99711D28B802B26C457A1B48C491FE240D19E969FCA8CB8B6073
+        DA03FBAE3F7B4C568B545A56869EB0A2E54D33A653D1AFD7F51AF6373A3CA612
+        BB54EAB41745A7A228A4E7081CF0748C868205D2C982C16F935ACF5FF1CCA99F
+        9802077ED9311A8B3507B1660443115CF4685E1051DC52CB0C0F9A8197F67C71
+        D973CF1DD90F0EE20F4D1D4827083206294DE2FC59CCCC01CF18019271A9E5E4
+        791267FF98333FF21544A7B80C91B802315985585C16E78C0732E984D909823E
+        905295529BF4D64201939600831CF79A0C7C9B2E69F4BE6627873D956205CC46
+        481F2BA701AFC6BD569E75FF695B43E081A7D1694158AD5289BD04019841E059
+        4CA78AD7988CBA8FEEDC1C981375607A1092873772928D003019BCF8E9FEFC9D
+        E70373A69015324A5FF970AB993788164168BBB9B7295050257E18C7FFFFD9E3
+        418FFF093000F87E6D73FA163DE90000000049454E44AE426082}
+      TabOrder = 1
+      OnClick = btnConsultarClick
+      Appearance.ColorChecked = 16111818
+      Appearance.ColorCheckedTo = 16367008
+      Appearance.ColorDisabled = 15921906
+      Appearance.ColorDisabledTo = 15921906
+      Appearance.ColorDown = 16111818
+      Appearance.ColorDownTo = 16367008
+      Appearance.ColorHot = 16117985
+      Appearance.ColorHotTo = 16372402
+      Appearance.ColorMirrorHot = 16107693
+      Appearance.ColorMirrorHotTo = 16775412
+      Appearance.ColorMirrorDown = 16102556
+      Appearance.ColorMirrorDownTo = 16768988
+      Appearance.ColorMirrorChecked = 16102556
+      Appearance.ColorMirrorCheckedTo = 16768988
+      Appearance.ColorMirrorDisabled = 11974326
+      Appearance.ColorMirrorDisabledTo = 15921906
+      Layout = blGlyphTop
+    end
+    object Panel2: TPanel
+      Left = 1
+      Top = 1
+      Width = 142
+      Height = 91
+      Align = alLeft
+      TabOrder = 2
+      object dtpFechaRenta: TAdvDateTimePicker
+        Left = 14
+        Top = 20
+        Width = 99
+        Height = 21
+        Date = 44227.001655092590000000
+        Format = ''
+        Time = 44227.001655092590000000
+        DoubleBuffered = True
+        Kind = dkDate
+        ParentDoubleBuffered = False
+        TabOrder = 0
+        TabStop = True
+        BorderStyle = bsSingle
+        Ctl3D = True
+        DateTime = 44227.001655092590000000
+        Version = '1.2.2.0'
+        LabelCaption = 'Fecha desde.:'
+        LabelPosition = lpTopLeft
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
+      end
+      object dtpFechaDevolucion: TAdvDateTimePicker
+        Left = 14
+        Top = 65
+        Width = 99
+        Height = 21
+        Date = 44227.001655092590000000
+        Format = ''
+        Time = 44227.001655092590000000
+        DoubleBuffered = True
+        Kind = dkDate
+        ParentDoubleBuffered = False
+        TabOrder = 1
+        TabStop = True
+        BorderStyle = bsSingle
+        Ctl3D = True
+        DateTime = 44227.001655092590000000
+        Version = '1.2.2.0'
+        LabelCaption = 'Fecha hasta.:'
+        LabelPosition = lpTopLeft
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
+      end
+    end
+    object Panel4: TPanel
+      Left = 454
+      Top = 1
+      Width = 174
+      Height = 91
+      Hint = 'Grupo del Producto'
+      Align = alLeft
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      object rgEmpleado: TRadioGroup
+        Left = 1
+        Top = 1
+        Width = 172
+        Height = 64
+        Hint = 'Filtrar por Empleados'
+        Align = alTop
+        Caption = 'Empleados'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Todos'
+          'Por Empleado')
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = rgEmpleadoClick
+      end
+      object edtEmpleado: TAdvEdit
+        Left = 1
+        Top = 65
+        Width = 147
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        EmptyTextStyle = []
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
+        Lookup.Font.Charset = DEFAULT_CHARSET
+        Lookup.Font.Color = clWindowText
+        Lookup.Font.Height = -11
+        Lookup.Font.Name = 'Arial'
+        Lookup.Font.Style = []
+        Lookup.Separator = ';'
+        Align = alClient
+        CharCase = ecUpperCase
+        Color = clWindow
+        Enabled = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Text = ''
+        Visible = True
+        Version = '3.3.2.8'
+        ExplicitHeight = 21
+      end
+      object btnEmpleado: TAdvGlowButton
+        Left = 148
+        Top = 65
+        Width = 25
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        Align = alRight
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        Picture.Data = {
+          424D420100000000000076000000280000001100000011000000010004000000
+          00000000000000000000000000001000000010000000000000FF0000BFFF00BF
+          00FF00BFBFFFBF0000FFBF00BFFFBFBF00FFC0C0C0FF808080FF0000FFFF00FF
+          00FF00FFFFFFFF0000FFFF00FFFFFFFF00FFFFFFFFFF77777777777777777000
+          000077777777777777777000000070000077777000007000000070B000777770
+          F0007000000070F000777770B00070000000700000007000000070000000700B
+          000000B0000070000000700F000700F0000070000000700B000700B000007000
+          00007700000000000007700000007770B00070B0007770000000777000007000
+          00777000000077770007770007777000000077770B07770B0777700000007777
+          0007770007777000000077777777777777777000000077777777777777777000
+          0000}
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+        OnClick = btnEmpleadoClick
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
+        Enabled = False
+        ExplicitLeft = 144
+        ExplicitTop = 61
+      end
+    end
+    object Panel5: TPanel
+      Left = 294
+      Top = 1
+      Width = 160
+      Height = 91
+      Hint = 'Grupo del Producto'
+      Align = alLeft
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+      object rgVehiculo: TRadioGroup
+        Left = 1
+        Top = 1
+        Width = 158
+        Height = 64
+        Hint = 'Filtrar por Vehiculos'
+        Align = alTop
+        Caption = 'Veh'#237'culos'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Todos'
+          'Por Veh'#237'culos')
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = rgVehiculoClick
+        ExplicitLeft = -3
+        ExplicitTop = -5
+      end
+      object edtVehiculo: TAdvEdit
+        Left = 1
+        Top = 65
+        Width = 133
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        EmptyTextStyle = []
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
+        Lookup.Font.Charset = DEFAULT_CHARSET
+        Lookup.Font.Color = clWindowText
+        Lookup.Font.Height = -11
+        Lookup.Font.Name = 'Arial'
+        Lookup.Font.Style = []
+        Lookup.Separator = ';'
+        Align = alClient
+        CharCase = ecUpperCase
+        Color = clWindow
+        Enabled = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Text = ''
+        Visible = True
+        Version = '3.3.2.8'
+        ExplicitHeight = 21
+      end
+      object btnVehiculo: TAdvGlowButton
+        Left = 134
+        Top = 65
+        Width = 25
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        Align = alRight
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        Picture.Data = {
+          424D420100000000000076000000280000001100000011000000010004000000
+          00000000000000000000000000001000000010000000000000FF0000BFFF00BF
+          00FF00BFBFFFBF0000FFBF00BFFFBFBF00FFC0C0C0FF808080FF0000FFFF00FF
+          00FF00FFFFFFFF0000FFFF00FFFFFFFF00FFFFFFFFFF77777777777777777000
+          000077777777777777777000000070000077777000007000000070B000777770
+          F0007000000070F000777770B00070000000700000007000000070000000700B
+          000000B0000070000000700F000700F0000070000000700B000700B000007000
+          00007700000000000007700000007770B00070B0007770000000777000007000
+          00777000000077770007770007777000000077770B07770B0777700000007777
+          0007770007777000000077777777777777777000000077777777777777777000
+          0000}
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+        OnClick = btnVehiculoClick
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
+        Enabled = False
+        ExplicitLeft = 130
+        ExplicitTop = 61
+      end
+    end
+    object Panel6: TPanel
+      Left = 143
+      Top = 1
+      Width = 151
+      Height = 91
+      Hint = 'Grupo del Producto'
+      Align = alLeft
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 5
+      object rgClientes: TRadioGroup
+        Left = 1
+        Top = 1
+        Width = 149
+        Height = 64
+        Hint = 'Filtrar por Clientes'
+        Align = alTop
+        Caption = 'Clientes'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'Todos'
+          'Por Cliente')
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = rgClientesClick
+      end
+      object edtCliente: TAdvEdit
+        Left = 1
+        Top = 65
+        Width = 124
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        EmptyTextStyle = []
+        LabelFont.Charset = DEFAULT_CHARSET
+        LabelFont.Color = clWindowText
+        LabelFont.Height = -11
+        LabelFont.Name = 'Tahoma'
+        LabelFont.Style = []
+        Lookup.Font.Charset = DEFAULT_CHARSET
+        Lookup.Font.Color = clWindowText
+        Lookup.Font.Height = -11
+        Lookup.Font.Name = 'Arial'
+        Lookup.Font.Style = []
+        Lookup.Separator = ';'
+        Align = alClient
+        CharCase = ecUpperCase
+        Color = clWindow
+        Enabled = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Text = ''
+        Visible = True
+        Version = '3.3.2.8'
+        ExplicitHeight = 21
+      end
+      object btnCliente: TAdvGlowButton
+        Left = 125
+        Top = 65
+        Width = 25
+        Height = 25
+        Hint = 'Filtrar un Producto'
+        Align = alRight
+        NotesFont.Charset = DEFAULT_CHARSET
+        NotesFont.Color = clWindowText
+        NotesFont.Height = -11
+        NotesFont.Name = 'Tahoma'
+        NotesFont.Style = []
+        Picture.Data = {
+          424D420100000000000076000000280000001100000011000000010004000000
+          00000000000000000000000000001000000010000000000000FF0000BFFF00BF
+          00FF00BFBFFFBF0000FFBF00BFFFBFBF00FFC0C0C0FF808080FF0000FFFF00FF
+          00FF00FFFFFFFF0000FFFF00FFFFFFFF00FFFFFFFFFF77777777777777777000
+          000077777777777777777000000070000077777000007000000070B000777770
+          F0007000000070F000777770B00070000000700000007000000070000000700B
+          000000B0000070000000700F000700F0000070000000700B000700B000007000
+          00007700000000000007700000007770B00070B0007770000000777000007000
+          00777000000077770007770007777000000077770B07770B0777700000007777
+          0007770007777000000077777777777777777000000077777777777777777000
+          0000}
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+        OnClick = btnClienteClick
+        Appearance.ColorChecked = 16111818
+        Appearance.ColorCheckedTo = 16367008
+        Appearance.ColorDisabled = 15921906
+        Appearance.ColorDisabledTo = 15921906
+        Appearance.ColorDown = 16111818
+        Appearance.ColorDownTo = 16367008
+        Appearance.ColorHot = 16117985
+        Appearance.ColorHotTo = 16372402
+        Appearance.ColorMirrorHot = 16107693
+        Appearance.ColorMirrorHotTo = 16775412
+        Appearance.ColorMirrorDown = 16102556
+        Appearance.ColorMirrorDownTo = 16768988
+        Appearance.ColorMirrorChecked = 16102556
+        Appearance.ColorMirrorCheckedTo = 16768988
+        Appearance.ColorMirrorDisabled = 11974326
+        Appearance.ColorMirrorDisabledTo = 15921906
+        Enabled = False
+        ExplicitLeft = 121
+        ExplicitTop = 61
+      end
+    end
+  end
+  object crdbgrdDetalle: TCRDBGrid
+    Left = 0
+    Top = 93
+    Width = 923
+    Height = 367
+    OptionsEx = [dgeEnableSort, dgeLocalFilter, dgeLocalSorting, dgeRecordCount, dgeStretch]
+    Align = alClient
+    DataSource = DsData
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'CODIGO'
+        Width = 70
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CLIENTES'
+        Width = 165
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VEHICULOS'
+        Width = 165
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'EMPLEADOS'
+        Width = 165
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FECHA_RENTA'
+        Width = 84
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FECHA_DEVOLUCION'
+        Width = 119
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ESTADO'
+        Width = 132
+        Visible = True
+      end>
+  end
+  object qData: TUniQuery
+    Connection = DM.DBNLND
+    SQL.Strings = (
+      'SELECT '
+      'RD.ID AS CODIGO,'
+      'C.NOMBRES AS CLIENTES,'
+      'V.DESCRIPCION AS VEHICULOS,'
+      'E.NOMBRES AS EMPLEADOS,'
+      'RD.FECHA_RENTA,'
+      'RD.FECHA_DEVOLUCION,'
+      'RD.DIAS,'
+      'RD.MONTOXDIA,'
+      'CASE WHEN RD.ESTADO = 1 THEN '#39'RENTADO'#39
+      'ELSE '#39'DEVUELTO'#39' END AS ESTADO'
+      'FROM RENTA_DEVOLUCION RD'
+      'INNER JOIN CLIENTES C ON (C.ID = RD.ID_CLIENTE)'
+      'INNER JOIN VEHICULOS V ON (V.ID = RD.ID_VEHICULO)'
+      'INNER JOIN EMPLEADOS E ON (E.ID = RD.ID_EMPLEADO)')
+    Left = 249
+    Top = 158
+    object qDataCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'CODIGO'
+      ReadOnly = True
+      Required = True
+    end
+    object qDataCLIENTES: TStringField
+      FieldName = 'CLIENTES'
+      ReadOnly = True
+      Required = True
+      Size = 250
+    end
+    object qDataVEHICULOS: TStringField
+      FieldName = 'VEHICULOS'
+      ReadOnly = True
+      Required = True
+      Size = 250
+    end
+    object qDataEMPLEADOS: TStringField
+      FieldName = 'EMPLEADOS'
+      ReadOnly = True
+      Required = True
+      Size = 250
+    end
+    object qDataFECHA_RENTA: TDateField
+      FieldName = 'FECHA_RENTA'
+      Required = True
+    end
+    object qDataFECHA_DEVOLUCION: TDateField
+      FieldName = 'FECHA_DEVOLUCION'
+      Required = True
+    end
+    object qDataDIAS: TIntegerField
+      FieldName = 'DIAS'
+      Required = True
+    end
+    object qDataMONTOXDIA: TSingleField
+      FieldName = 'MONTOXDIA'
+      Required = True
+    end
+    object qDataESTADO: TStringField
+      FieldName = 'ESTADO'
+      ReadOnly = True
+      Required = True
+      Size = 8
+    end
+  end
+  object DsData: TDataSource
+    AutoEdit = False
+    DataSet = qData
+    Left = 14
+    Top = 158
+  end
+  object QBackUp: TUniQuery
+    Connection = DM.DBNLND
+    SQL.Strings = (
+      'SELECT '
+      'RD.ID AS CODIGO,'
+      'C.NOMBRES AS CLIENTES,'
+      'V.DESCRIPCION AS VEHICULOS,'
+      'E.NOMBRES AS EMPLEADOS,'
+      'RD.FECHA_RENTA,'
+      'RD.FECHA_DEVOLUCION,'
+      'RD.DIAS,'
+      'RD.MONTOXDIA,'
+      'CASE WHEN RD.ESTADO = 1 THEN '#39'RENTADO'#39
+      'ELSE '#39'DEVUELTO'#39' END AS ESTADO'
+      'FROM RENTA_DEVOLUCION RD'
+      'INNER JOIN CLIENTES C ON (C.ID = RD.ID_CLIENTE)'
+      'INNER JOIN VEHICULOS V ON (V.ID = RD.ID_VEHICULO)'
+      'INNER JOIN EMPLEADOS E ON (E.ID = RD.ID_EMPLEADO)')
+    Left = 296
+    Top = 158
+  end
+  object frxData: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 44227.077171122680000000
+    ReportOptions.LastChange = 44227.077171122680000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      ''
+      'begin'
+      ''
+      'end.')
+    Left = 202
+    Top = 158
+    Datasets = <
+      item
+        DataSet = frxDBDsData
+        DataSetName = 'frxDBDsData'
+      end>
+    Variables = <
+      item
+        Name = ' VARIABLES'
+        Value = Null
+      end
+      item
+        Name = 'FILTROS'
+        Value = ''
+      end>
+    Style = <
+      item
+        Name = 'Title'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Fill.BackColor = clGray
+      end
+      item
+        Name = 'Header'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+      end
+      item
+        Name = 'Group header'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Fill.BackColor = 16053492
+      end
+      item
+        Name = 'Data'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+      end
+      item
+        Name = 'Group footer'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+      end
+      item
+        Name = 'Header line'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        Frame.Typ = [ftBottom]
+        Frame.Width = 2.000000000000000000
+      end>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 216.000000000000000000
+      PaperHeight = 279.000000000000000000
+      PaperSize = 1
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 45.354360000000000000
+        Top = 18.897650000000000000
+        Width = 740.787880000000000000
+      end
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 86.929190000000000000
+        Width = 740.787880000000000000
+        object Memo2: TfrxMemoView
+          Width = 740.787401574803200000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 2.000000000000000000
+          ParentFont = False
+          Style = 'Header line'
+        end
+        object Memo3: TfrxMemoView
+          Width = 58.383535080503000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'CODIGO')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo4: TfrxMemoView
+          Left = 58.383535080503000000
+          Width = 104.019561640615800000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'CLIENTES')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo5: TfrxMemoView
+          Left = 162.403096721118800000
+          Width = 114.808617346339200000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'VEHICULOS')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo6: TfrxMemoView
+          Left = 277.211714067458000000
+          Width = 121.674380068163100000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'EMPLEADOS')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo7: TfrxMemoView
+          Left = 398.886094135621100000
+          Width = 102.000000000000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'FECHA_RENTA')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo8: TfrxMemoView
+          Left = 500.886094140000000000
+          Width = 145.000000000000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'FECHA_DEVOLUCION')
+          ParentFont = False
+          Style = 'Header'
+        end
+        object Memo10: TfrxMemoView
+          Left = 647.694924560000000000
+          Width = 59.076707020000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'ESTADO')
+          ParentFont = False
+          Style = 'Header'
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 170.078850000000000000
+        Width = 740.787880000000000000
+        DataSet = frxDBDsData
+        DataSetName = 'frxDBDsData'
+        RowCount = 0
+        object Memo11: TfrxMemoView
+          Width = 58.383535080503000000
+          Height = 18.897650000000000000
+          DataField = 'CODIGO'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."CODIGO"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo12: TfrxMemoView
+          Left = 58.383535080503000000
+          Width = 104.019561640615800000
+          Height = 18.897650000000000000
+          DataField = 'CLIENTES'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."CLIENTES"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo13: TfrxMemoView
+          Left = 162.403096721118800000
+          Width = 114.808617346339200000
+          Height = 18.897650000000000000
+          DataField = 'VEHICULOS'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."VEHICULOS"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo14: TfrxMemoView
+          Left = 277.211714067458000000
+          Width = 121.674380068163100000
+          Height = 18.897650000000000000
+          DataField = 'EMPLEADOS'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."EMPLEADOS"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo15: TfrxMemoView
+          Left = 398.886094135621100000
+          Width = 102.000000000000000000
+          Height = 18.897650000000000000
+          DataField = 'FECHA_RENTA'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."FECHA_RENTA"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo16: TfrxMemoView
+          Left = 500.886094140000000000
+          Width = 145.000000000000000000
+          Height = 18.897650000000000000
+          DataField = 'FECHA_DEVOLUCION'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."FECHA_DEVOLUCION"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+        object Memo18: TfrxMemoView
+          Left = 647.694924560000000000
+          Width = 93.092477020000000000
+          Height = 18.897650000000000000
+          DataField = 'ESTADO'
+          DataSet = frxDBDsData
+          DataSetName = 'frxDBDsData'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            '[frxDBDsData."ESTADO"]')
+          ParentFont = False
+          Style = 'Data'
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        Height = 26.456710000000000000
+        Top = 249.448980000000000000
+        Width = 740.787880000000000000
+        object Memo19: TfrxMemoView
+          Align = baWidth
+          Width = 740.787880000000000000
+          Frame.Typ = [ftTop]
+          Frame.Width = 2.000000000000000000
+        end
+        object Memo20: TfrxMemoView
+          Top = 1.000000000000000000
+          Height = 22.677180000000000000
+          AutoWidth = True
+          Memo.UTF8W = (
+            '[Date] [Time]')
+        end
+        object Memo21: TfrxMemoView
+          Align = baRight
+          Left = 665.197280000000000000
+          Top = 1.000000000000000000
+          Width = 75.590600000000000000
+          Height = 22.677180000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Page [Page#]')
+        end
+      end
+      object Memo1: TfrxMemoView
+        Align = baWidth
+        Top = 15.118120000000000000
+        Width = 740.787880000000000000
+        Height = 49.133890000000000000
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Fill.BackColor = clGray
+        HAlign = haCenter
+        Memo.UTF8W = (
+          'REPORTE RENTA Y DEVOLUCION'
+          '[FILTROS]')
+        ParentFont = False
+        Style = 'Title'
+        VAlign = vaCenter
+      end
+    end
+  end
+  object frxDBDsData: TfrxDBDataset
+    UserName = 'frxDBDsData'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'CODIGO=CODIGO'
+      'CLIENTES=CLIENTES'
+      'VEHICULOS=VEHICULOS'
+      'EMPLEADOS=EMPLEADOS'
+      'FECHA_RENTA=FECHA_RENTA'
+      'FECHA_DEVOLUCION=FECHA_DEVOLUCION'
+      'DIAS=DIAS'
+      '-MONTOXDIA=MONTOXDIA'
+      'ESTADO=ESTADO')
+    DataSet = qData
+    BCDToCurrency = False
+    Left = 108
+    Top = 158
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    Left = 155
+    Top = 158
+  end
+  object frxCSVExport1: TfrxCSVExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    Separator = ','
+    OEMCodepage = False
+    UTF8 = False
+    NoSysSymbols = True
+    ForcedQuotes = False
+    Left = 61
+    Top = 158
+  end
+end

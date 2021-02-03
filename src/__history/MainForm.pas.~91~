@@ -1,0 +1,512 @@
+unit MainForm;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Data.DB, Vcl.Buttons,
+  Vcl.DBCtrls, Vcl.ToolWin, Vcl.ComCtrls, Vcl.Menus, Vcl.Imaging.jpeg, MemDS,
+  DBAccess, Uni,System.Win.ComObj, ShellAPI, System.UITypes;
+
+type
+  TfrmMainForm = class(TForm)
+    MainMenu: TMainMenu;
+    tlb1: TToolBar;
+    DBNavigator: TDBNavigator;
+    btinsert: TSpeedButton;
+    btedit: TSpeedButton;
+    btdelete: TSpeedButton;
+    btpost: TSpeedButton;
+    btcancel: TSpeedButton;
+    btfind: TSpeedButton;
+    btpreview: TSpeedButton;
+    btprint: TSpeedButton;
+    btnbtclose: TSpeedButton;
+    btnbtexit: TSpeedButton;
+    dsMain: TDataSource;
+    imgMain: TImage;
+    statUser: TStatusBar;
+    tmrtimer: TTimer;
+    qUnquery: TUniQuery;
+    ConfigMenu: TMenuItem;
+    ConfigUsers: TMenuItem;
+    MantenimientosMenu: TMenuItem;
+    Marcas: TMenuItem;
+    Modelos: TMenuItem;
+    Tipo_Vehiculos: TMenuItem;
+    Tipo_Combustible: TMenuItem;
+    Vehiculos: TMenuItem;
+    Empleados: TMenuItem;
+    Clientes: TMenuItem;
+    ServiciosMenu: TMenuItem;
+    Inspeccion: TMenuItem;
+    RentaDevolucion: TMenuItem;
+    Reportes: TMenuItem;
+    R1: TMenuItem;
+    btnExport: TSpeedButton;
+    btcascade: TSpeedButton;
+    dlgSave: TSaveDialog;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure btnbtexitClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure tmrtimerTimer(Sender: TObject);
+    procedure dsMainStateChange(Sender: TObject);
+    procedure btinsertClick(Sender: TObject);
+    procedure bteditClick(Sender: TObject);
+    procedure btdeleteClick(Sender: TObject);
+    procedure btpostClick(Sender: TObject);
+    procedure btcancelClick(Sender: TObject);
+    procedure btnbtcloseClick(Sender: TObject);
+    procedure ConfigUsersClick(Sender: TObject);
+    procedure MarcasClick(Sender: TObject);
+    function get_string_field(tabla,filtro_campo,campo_solicitado : string; id_documento : Integer) : string;
+    procedure ModelosClick(Sender: TObject);
+    procedure Tipo_VehiculosClick(Sender: TObject);
+    procedure Tipo_CombustibleClick(Sender: TObject);
+    procedure VehiculosClick(Sender: TObject);
+    procedure EmpleadosClick(Sender: TObject);
+    procedure ClientesClick(Sender: TObject);
+    procedure InspeccionClick(Sender: TObject);
+    procedure RentaDevolucionClick(Sender: TObject);
+    procedure btnExportClick(Sender: TObject);
+    procedure R1Click(Sender: TObject);
+    procedure btcascadeClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure OnCloseApp;
+    procedure InicializarNotificaciones;
+  public
+    { Public declarations }
+    procedure ExportarExcel(DataSet: TDataSet; cNomArchivo: string);
+
+    var
+    pregunta, error, avisa: PWideChar;
+    USUARIO_NOMBRE: string;
+    USUARIO_APELLIDO: string;
+    ID_USUARIO: Integer;
+    USER_PASS: string;
+    USER_EMAIL: string;
+    USER_USUARIO: string;
+  end;
+
+var
+  frmMainForm: TfrmMainForm;
+
+implementation
+
+uses
+  DataModule, SesionInicio, Users, Marcas, Modelos, Tipo_Vehiculos, Tipo_Combustibles, Vehiculos, Empleados, Clientes, Inspeccion, RentaDevolucion, ReportRentDevol;
+
+{$R *.dfm}
+
+procedure TfrmMainForm.btcancelClick(Sender: TObject);
+begin
+  if Application.MessageBox
+    ('¿Está seguro que desea cancelar el proceso actual?', pregunta,
+    MB_YESNO + MB_ICONQUESTION) = IDYES then
+  begin
+    try
+      dsMain.DataSet.cancel;
+    except
+    end;
+  end;
+end;
+
+procedure TfrmMainForm.btcascadeClick(Sender: TObject);
+begin
+  Cascade;
+end;
+
+procedure TfrmMainForm.btdeleteClick(Sender: TObject);
+begin
+  if Application.MessageBox('¿Está seguro que desea eliminar el registro?',
+    pregunta, MB_YESNO + MB_ICONQUESTION) = IDYES then
+  begin
+    try
+      dsMain.DataSet.Delete;
+    except
+    end;
+  end;
+end;
+
+procedure TfrmMainForm.bteditClick(Sender: TObject);
+begin
+  try
+    dsMain.DataSet.Edit;
+  except
+  end;
+end;
+
+procedure TfrmMainForm.btinsertClick(Sender: TObject);
+begin
+  try
+    dsMain.DataSet.append;
+  except
+  end;
+end;
+
+procedure TfrmMainForm.btnbtcloseClick(Sender: TObject);
+begin
+  with frmMainForm do
+  begin
+    if mdichildcount > 0 then
+      ActiveMDIChild.Close;
+  end;
+end;
+
+procedure TfrmMainForm.btnbtexitClick(Sender: TObject);
+begin
+  OnCloseApp;
+end;
+
+procedure TfrmMainForm.btnExportClick(Sender: TObject);
+var st:array[0..255] of Char;
+begin
+  case MessageDlg('¿Seguro que desea exportar?',  mtConfirmation, [mbYes,
+    mbNo], 0) of
+    mrYes:
+      begin
+      dsMain.DataSet.DisableControls;
+        if dlgSave.Execute then
+        begin
+          ExportarExcel(dsMain.DataSet,dlgsave.FileName);
+          dsMain.DataSet.EnableControls;
+           case Application.MessageBox('¿Desea abrir el documento?',
+            'Application.Title', MB_YESNO + MB_ICONQUESTION + MB_TOPMOST) of
+            IDYES:
+              begin
+                ShellExecute(Handle,'open',StrPCopy(St,dlgsave.FileName),nil,nil,SW_SHOW);
+              end;
+            IDNO:
+              begin
+                //Ah bueno
+              end;
+           end;
+        end
+        else dsMain.DataSet.EnableControls;
+      end;
+    mrNo:
+      begin
+
+      end;
+  end;
+end;
+
+procedure TfrmMainForm.btpostClick(Sender: TObject);
+begin
+  try
+    if dsMain.state <> dsbrowse then
+    begin
+      dsMain.DataSet.Post;
+    end;
+  except
+    On Error: Exception do
+    begin
+      Application.MessageBox(PChar(Error.Message), 'Error',
+        MB_OK + MB_ICONSTOP + MB_TOPMOST);
+    end;
+  end;
+end;
+
+procedure TfrmMainForm.ClientesClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmClientes, FrmClientes);
+  FrmClientes.Show;
+end;
+
+procedure TfrmMainForm.ConfigUsersClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmUsers, FrmUsers);
+  FrmUsers.Show;
+end;
+
+procedure TfrmMainForm.dsMainStateChange(Sender: TObject);
+begin
+  btinsert.enabled := dsMain.state = dsbrowse;
+  btedit.enabled := btinsert.enabled;
+  btdelete.enabled := btinsert.enabled;
+  btpost.enabled := not btinsert.enabled;
+  btcancel.enabled := not btinsert.enabled;
+
+  if dsMain.DataSet = nil then
+  begin
+    btpost.enabled := False;
+    btcancel.enabled := False;
+  end;
+
+  btfind.enabled := btinsert.enabled;
+  btprint.enabled := btinsert.enabled;
+  btpreview.enabled := btinsert.enabled;
+  DBNavigator.enabled := btinsert.enabled;
+end;
+
+procedure TfrmMainForm.EmpleadosClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmEmpleados, FrmEmpleados);
+  FrmEmpleados.Show;
+end;
+
+procedure TfrmMainForm.ExportarExcel(DataSet: TDataSet; cNomArchivo: string);
+var
+  Excel: variant;      // Aplicación Excel
+  Libro: variant;      // Libro de trabajo
+  Hoja: variant;       // Hoja de cálculo
+  fila, columna, campo: integer;
+  marca: variant;
+begin
+//   Creamos el objeto de automatizació n OLE
+  try
+    Excel := CreateOleObject('Excel.Application');
+
+    try
+      Excel.visible := False;
+
+      // Creamos un nuevo libro de trabajo
+      Excel.SheetsInNewWorkbook := 1;
+      Libro := Excel.WorkBooks.Add;
+
+      // Obtenemos una referencia a la página del libro
+      Hoja := Libro.WorkSheets[1];
+
+      // Recorremos los campos para poner sus nombres como
+      // encabezado en la primera fila
+      fila    := 1;
+      columna := 1;
+      for campo := 0 to DataSet.FieldCount - 1 do
+      begin
+        if DataSet.Fields[campo].Visible then  // Sólo se incluyen los campos visibles
+        begin
+        Hoja.Cells[fila, columna] := DataSet.Fields[campo].DisplayName;
+        Inc(columna) ;
+        end;
+      end;
+
+      Hoja.Rows[fila].Font.Bold := True;
+
+      //Screen.Cursor := crHourglass;   // cambio a reloj arena
+      DataSet.DisableControls;
+
+      try
+        Marca:= Dataset.Bookmark;  // guardo donde estaba el dataset
+        DataSet.First;
+        // Recorremos los registros del dataset
+        while not DataSet.Eof do begin
+          Inc(fila);     // Cada registro va en una nueva fila
+          columna := 1;
+          // Recorremos los campos para ir llenando las celdas de la fila
+          for campo := 0 to DataSet.FieldCount - 1 do
+          begin
+            if DataSet.Fields[campo].Visible then // Sólo se incluyen los campos visibles
+            begin
+              if not DataSet.Fields[campo].IsNull then  // Si el valor es nulo, no lo asignamos
+              begin
+                if DataSet.Fields[campo].DataType = ftString then
+                  Hoja.Cells[fila, columna] := '''' + DataSet.Fields[campo].AsString
+                else
+                begin
+                  try
+                    Hoja.Cells[fila, columna] := DataSet.Fields[campo].Value;
+                  except
+                    Hoja.Cells[fila, columna] := DataSet.Fields[campo].DisplayText;
+                  end;
+                end;
+              end;
+
+              Inc(columna);
+            end;
+          end;
+
+          DataSet.Next; // Avanzamos al siguiente registro
+        end;
+      finally
+        Dataset.Bookmark := Marca;  // dejo el dataset donde estaba
+        DataSet.EnableControls;
+      end;
+    finally
+      try Hoja.Cells.Columns.AutoFit; except end;  // Autoajuste
+      //Excel.Visible := True; // Mostramos el Excel
+      // Grabamos el archivo
+      Libro.saveas( cNomArchivo);
+      Excel.quit;
+    end;
+  except
+    Application. MessageBox( 'Excel no se encuentra instalado en este equipo, no se puede exportar','Error' ,mb_OK + mb_IconExclamation) ;
+  end;
+end;
+
+procedure TfrmMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  OnCloseApp;
+end;
+
+procedure TfrmMainForm.FormCreate(Sender: TObject);
+begin
+  // Muestra en un panelBar la fecha y la hora exacta del presente ejecutado la aplicación
+  // statUser.Panels[1].text := datetostr(date);
+  statUser.Panels[1].text := FormatDateTime('dddd",d-mmmm-yyyy', Now);
+  statUser.Panels[2].text := timetostr(time);
+end;
+
+procedure TfrmMainForm.FormShow(Sender: TObject);
+var
+  UserInput: string;
+begin
+  InicializarNotificaciones;
+
+  // Cuando el form trata de abrirse primero se abre el formulario inicio de sesion antes
+  Application.CreateForm(TInicioSesion, InicioSesion);
+  InicioSesion.ShowModal;
+  // Si inicio de sesion envio el Ok entonces se ejecuta este if
+  try
+    if InicioSesion.ModalResult = mrOk then
+    begin
+
+      // Las variables globales ahora tienen el valor del ID, Nombres y apellidos y la contraseña
+      // del usuario logueado
+
+      ID_USUARIO := InicioSesion.qUsersID.AsInteger;
+      USUARIO_NOMBRE := InicioSesion.qUsersNOMBRES.AsString;
+      USUARIO_APELLIDO := InicioSesion.qUsersAPELLIDOS.AsString;
+      USER_PASS := InicioSesion.qUsersPASSWORD.AsString;
+      USER_EMAIL := InicioSesion.qUsersCORREO.AsString;
+      USER_USUARIO := InicioSesion.qUsersUSUARIO.AsString;
+      UserInput := InicioSesion.edtEmail.text;
+
+      // Se pone el nombre del usuario logueado en el panel de abajo y la version del la apliación
+      statUser.Panels[0].text := 'Usuario: ' + (USUARIO_NOMBRE) + ' ' +
+        (USUARIO_APELLIDO);
+      statUser.Panels[3].text := 'Ver.:' + (DM.Version_Exe);
+
+      // Actualmente en deshuso pero esto hace que si actualiz contraseña se habre desde el main pues
+      // Esta pantalla la que se habre funcionara bien por eso se queda asi aunque nunca sucedera y
+      // fue complicado de hacer
+
+      // Si el check recordar usuario es igual a verdadero entonces se ejecuta este if
+      // Función.: Escribe el e-mail en el xml que esta instalado en el programa
+      // Para poder recordarlo  luego
+      if DM.Recordar_Usuario = '1' then
+      begin
+        DM.XMLNLND.Active := False;
+        DM.XMLNLND.Active := True;
+        DM.XMLNLND.ChildNodes.Nodes['body'].ChildNodes.Nodes['email'].text :=
+          UserInput;
+        DM.XMLNLND.SaveToFile('DBProvider.xml');
+        DM.XMLNLND.Active := False;
+      end;
+
+    end
+    else
+    begin
+      // Si inicio de sesión no envia el Ok entonces la aplicacion se termina
+      Application.Terminate;
+    end;
+  finally
+    InicioSesion.Free;
+    InicioSesion := nil;
+  end;
+end;
+
+function TfrmMainForm.get_string_field(tabla, filtro_campo,
+  campo_solicitado: string; id_documento: Integer): string;
+begin
+   qUnquery.Close;
+   qUnquery.sql.Clear;
+   qUnquery.sql.Add('SELECT '+campo_solicitado+' FROM '+tabla);
+   qUnquery.sql.Add('WHERE '+filtro_campo+ '= '+IntToStr(id_documento));
+   qUnquery.Open;
+
+   if not qUnquery.Fields[0].IsNull then
+     Result := qUnquery.Fields[0].AsString
+   else
+     Result := '';
+
+   qUnquery.close;
+end;
+
+procedure TfrmMainForm.InicializarNotificaciones;
+begin
+  pregunta := 'Grullon D. RentCar - Pregunta';
+  error    := 'Grullon D. RentCar - Error';
+  avisa    := 'Grullon D. RentCar - Avisa';
+end;
+
+procedure TfrmMainForm.InspeccionClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmInspeccion, FrmInspeccion);
+  FrmInspeccion.Show;
+end;
+
+procedure TfrmMainForm.MarcasClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmMarcas, FrmMarcas);
+  FrmMarcas.Show;
+end;
+
+procedure TfrmMainForm.ModelosClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmModelos, FrmModelos);
+  FrmModelos.Show;
+end;
+
+procedure TfrmMainForm.OnCloseApp;
+begin
+  case Application.MessageBox('¿Está seguro que desea cerrar la aplicación?',
+    pregunta, MB_YESNO + MB_ICONQUESTION) of
+    IDYES:
+      begin
+        Application.Terminate;
+      end;
+    IDNO:
+      begin
+        Abort;
+      end;
+  end;
+end;
+
+procedure TfrmMainForm.R1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmReportRentDevol, frmReportRentDevol);
+  frmReportRentDevol.Show;
+end;
+
+procedure TfrmMainForm.RentaDevolucionClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmRentaDevolucion, FrmRentaDevolucion);
+  FrmRentaDevolucion.Show;
+end;
+
+procedure TfrmMainForm.Tipo_CombustibleClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmTipo_Combustibles, FrmTipo_Combustibles);
+  FrmTipo_Combustibles.Show;
+end;
+
+procedure TfrmMainForm.Tipo_VehiculosClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmTipo_Vehiculos, FrmTipo_Vehiculos);
+  FrmTipo_Vehiculos.Show;
+end;
+
+procedure TfrmMainForm.tmrtimerTimer(Sender: TObject);
+var
+  DateTime: TDateTime;
+  str: string;
+  // UnaHora : string;
+begin
+  // En un ciclo sin fin este indicara la hora exacta por segundos y el dia
+  DateTime := time;
+  str := timetostr(DateTime);
+  statUser.Panels[2].text := str;
+  // statUser.Panels[1].text := datetostr(date);
+  statUser.Panels[1].text := FormatDateTime('dddd", "d"-"mmmm"-"yyyy', Now);
+end;
+
+procedure TfrmMainForm.VehiculosClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmVehiculos, FrmVehiculos);
+  FrmVehiculos.Show;
+end;
+
+end.

@@ -1,0 +1,126 @@
+unit Clientes;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, Uni,
+  Vcl.Grids, Vcl.DBGrids, CRGrid, Vcl.ExtCtrls, Vcl.StdCtrls, AdvEdit, DBAdvEd,
+  Vcl.DBCtrls, AdvGlowButton, Vcl.Mask, AdvSmoothEdit, AdvSmoothEditButton,
+  AdvSmoothDatePicker, DBAdvSmoothDatePicker;
+
+type
+  TFrmClientes = class(TForm)
+    pnlLeft: TPanel;
+    CRDBGrid1: TCRDBGrid;
+    DsData: TDataSource;
+    Label1: TLabel;
+    qData: TUniQuery;
+    DBAdvEdit2: TDBAdvEdit;
+    DBAdvEdit6: TDBAdvEdit;
+    DBAdvEdit7: TDBAdvEdit;
+    DBrgEstado: TDBRadioGroup;
+    DBRadioGroup1: TDBRadioGroup;
+    DBAdvMaskEdit1: TDBAdvMaskEdit;
+    qDataID: TIntegerField;
+    qDataNOMBRES: TStringField;
+    qDataAPELLIDOS: TStringField;
+    qDataCEDULA: TStringField;
+    qDataTARJETA_CREDITO: TStringField;
+    qDataLIMITE_CREDITO: TSingleField;
+    qDataTIPO_PERSONA: TIntegerField;
+    qDataESTADO: TIntegerField;
+    qDataSTATUS: TStringField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure qDataBeforePost(DataSet: TDataSet);
+    procedure qDataAfterInsert(DataSet: TDataSet);
+    procedure qDataCalcFields(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmClientes: TFrmClientes;
+
+implementation
+
+uses
+  DataModule, MainForm, Busqueda;
+
+{$R *.dfm}
+
+procedure TFrmClientes.FormActivate(Sender: TObject);
+begin
+  frmMainForm.dsMain.DataSet := qData;
+end;
+
+procedure TFrmClientes.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmMainForm.dsMain.DataSet := nil;
+  Action := caFree;
+end;
+
+procedure TFrmClientes.FormShow(Sender: TObject);
+begin
+  qData.Open;
+end;
+
+procedure TFrmClientes.qDataAfterInsert(DataSet: TDataSet);
+begin
+  qDataESTADO.AsInteger := 1;
+end;
+
+procedure TFrmClientes.qDataBeforePost(DataSet: TDataSet);
+begin
+  if ((qdataDESCRIPCION.AsString = '') or
+     (qDataID_MARCA.IsNull) or
+     (qDataID_MODELO.IsNull) or
+     (qDataID_TIPO_VEHICULO.IsNull) or
+     (qDataID_TIPO_COMBUSTIBLE.IsNull))
+  then
+  begin
+    Application.MessageBox('Faltan campos por completar...' + #13#10#13#10
+      + 'Se detendra el proceso', frmMainForm.error, MB_OK +
+      MB_ICONSTOP);
+
+    Abort;
+  end;
+end;
+
+procedure TFrmClientes.qDataCalcFields(DataSet: TDataSet);
+begin
+  if qDataESTADO.AsInteger = 1 then
+    qDataSTATUS.AsString := 'Disponible'
+  else qDataSTATUS.AsString := 'Rentado';
+
+  if not qDataID_MARCA.IsNull then
+  begin
+    qDataMARCA.AsString := frmMainForm.get_string_field('MARCAS','ID','DESCRIPCION',
+                           qDataID_MARCA.AsInteger);
+  end;
+
+  if not qDataID_MODELO.IsNull then
+  begin
+    qDataMODELO.AsString := frmMainForm.get_string_field('MODELOS','ID','MODELO',
+                           qDataID_MODELO.AsInteger);
+  end;
+
+  if not qDataID_TIPO_VEHICULO.IsNull then
+  begin
+    qDataTIPO_VEHICULO.AsString := frmMainForm.get_string_field('TIPO_VEHICULOS','ID','DESCRIPCION',
+                           qDataID_TIPO_VEHICULO.AsInteger);
+  end;
+
+  if not qDataID_TIPO_COMBUSTIBLE.IsNull then
+  begin
+    qDataTIPO_COMBUSTIBLE.AsString := frmMainForm.get_string_field('TIPO_COMBUSTIBLES','ID','DESCRIPCION',
+                           qDataID_TIPO_COMBUSTIBLE.AsInteger);
+  end;
+end;
+
+end.

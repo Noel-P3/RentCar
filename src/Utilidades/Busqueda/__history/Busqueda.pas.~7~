@@ -1,0 +1,69 @@
+unit Busqueda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, Uni,
+  Vcl.Grids, Vcl.DBGrids, CRGrid, Vcl.StdCtrls, AdvEdit;
+
+type
+  TfrmBusqueda = class(TForm)
+    edtBusqueda: TAdvEdit;
+    CRDBGrid1: TCRDBGrid;
+    qUnquery: TUniQuery;
+    DSUnquery: TDataSource;
+    procedure FormShow(Sender: TObject);
+    procedure edtBusquedaChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+
+    Campo_Busqueda,Tabla,Campos,Condiciones,Order :string;
+    Ocultar_Primera_Columna : Boolean;
+  end;
+
+var
+  frmBusqueda: TfrmBusqueda;
+
+implementation
+
+uses
+  DataModule;
+
+{$R *.dfm}
+
+procedure TfrmBusqueda.edtBusquedaChange(Sender: TObject);
+begin
+  if qUnquery.Active then
+  begin
+    qUnquery.Filtered := False;
+
+    if edtBusqueda.Text <> '' then
+    begin
+      qUnquery.Filter   := 'Campo_Busqueda like '+QuotedStr('%'+edtBusqueda.Text+'%');
+      qUnquery.Filtered := True;
+    end;
+  end;
+end;
+
+procedure TfrmBusqueda.FormShow(Sender: TObject);
+begin
+  if qUnquery.SQL.Text <> '' then
+  begin
+    qUnquery.Close;
+    qUnquery.SQL.Clear;
+    qUnquery.SQL.Add('SELECT '+Campos+' FROM '+Tabla);
+    qUnquery.SQL.Add(Condiciones);
+    qUnquery.SQL.Add(Order);
+    qUnquery.Open;
+  end;
+
+  if Ocultar_Primera_Columna then
+  begin
+    qUnquery.Fields[0].Visible := False;
+  end;
+end;
+
+end.

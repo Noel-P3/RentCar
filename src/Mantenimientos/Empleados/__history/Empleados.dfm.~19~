@@ -1,0 +1,406 @@
+object FrmEmpleados: TFrmEmpleados
+  Left = 0
+  Top = 0
+  Caption = 'Empleados'
+  ClientHeight = 435
+  ClientWidth = 967
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  Visible = True
+  WindowState = wsMaximized
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlLeft: TPanel
+    Left = 0
+    Top = 0
+    Width = 465
+    Height = 435
+    Align = alLeft
+    TabOrder = 0
+    ExplicitLeft = -6
+    object Label1: TLabel
+      Left = 1
+      Top = 1
+      Width = 463
+      Height = 36
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Empleados'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -32
+      Font.Name = 'Times New Roman'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      ExplicitWidth = 144
+    end
+    object DBrgEstado: TDBRadioGroup
+      Left = 24
+      Top = 280
+      Width = 419
+      Height = 67
+      Caption = 'Tanda'
+      Columns = 2
+      DataField = 'TANDA'
+      DataSource = DsData
+      Items.Strings = (
+        'Matutina'
+        'Nocturna')
+      TabOrder = 0
+      Values.Strings = (
+        '1'
+        '0')
+    end
+    object DBAdvEdit2: TDBAdvEdit
+      Left = 144
+      Top = 66
+      Width = 299
+      Height = 27
+      Hint = 'Nombres del Empleado'
+      EmptyTextStyle = []
+      LabelCaption = 'Nombres.:'
+      LabelPosition = lpLeftCenter
+      LabelMargin = 5
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -13
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+      Lookup.Font.Charset = DEFAULT_CHARSET
+      Lookup.Font.Color = clWindowText
+      Lookup.Font.Height = -11
+      Lookup.Font.Name = 'Arial'
+      Lookup.Font.Style = []
+      Lookup.Separator = ';'
+      Color = clWindow
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Times New Roman'
+      Font.Style = []
+      MaxLength = 250
+      ParentFont = False
+      TabOrder = 1
+      Text = ''
+      Visible = True
+      Version = '3.3.2.8'
+      DataField = 'NOMBRES'
+      DataSource = DsData
+    end
+    object DBAdvEdit6: TDBAdvEdit
+      Left = 144
+      Top = 99
+      Width = 299
+      Height = 27
+      Hint = 'Descripci'#243'n del modelo'
+      EmptyTextStyle = []
+      LabelCaption = 'Apellidos.:'
+      LabelPosition = lpLeftCenter
+      LabelMargin = 5
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -13
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+      Lookup.Font.Charset = DEFAULT_CHARSET
+      Lookup.Font.Color = clWindowText
+      Lookup.Font.Height = -11
+      Lookup.Font.Name = 'Arial'
+      Lookup.Font.Style = []
+      Lookup.Separator = ';'
+      Color = clWindow
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Times New Roman'
+      Font.Style = []
+      MaxLength = 250
+      ParentFont = False
+      TabOrder = 2
+      Text = ''
+      Visible = True
+      Version = '3.3.2.8'
+      DataField = 'APELLIDOS'
+      DataSource = DsData
+    end
+    object DBAdvEdit7: TDBAdvEdit
+      Left = 144
+      Top = 165
+      Width = 299
+      Height = 27
+      Hint = 'Comision de ventas'
+      EditAlign = eaRight
+      EmptyTextStyle = []
+      LabelCaption = 'Porciento de Comisi'#243'n.:'
+      LabelPosition = lpLeftCenter
+      LabelMargin = 5
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -13
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+      Lookup.Font.Charset = DEFAULT_CHARSET
+      Lookup.Font.Color = clWindowText
+      Lookup.Font.Height = -11
+      Lookup.Font.Name = 'Arial'
+      Lookup.Font.Style = []
+      Lookup.Separator = ';'
+      Color = clWindow
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Times New Roman'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      Text = ''
+      Visible = True
+      Version = '3.3.2.8'
+      DataField = 'COMISION'
+      DataSource = DsData
+    end
+    object DBRadioGroup1: TDBRadioGroup
+      Left = 24
+      Top = 353
+      Width = 419
+      Height = 64
+      Caption = 'Estado'
+      Columns = 2
+      DataField = 'ESTADO'
+      DataSource = DsData
+      Items.Strings = (
+        'Activo'
+        'Inactivo')
+      TabOrder = 4
+      Values.Strings = (
+        '1'
+        '0')
+    end
+    object DBAdvEdit1: TDBAdvEdit
+      Left = 144
+      Top = 132
+      Width = 299
+      Height = 27
+      Hint = 'Comision de ventas'
+      EmptyTextStyle = []
+      LabelCaption = 'C'#233'dula.:'
+      LabelPosition = lpLeftCenter
+      LabelMargin = 5
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -13
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+      Lookup.Font.Charset = DEFAULT_CHARSET
+      Lookup.Font.Color = clWindowText
+      Lookup.Font.Height = -11
+      Lookup.Font.Name = 'Arial'
+      Lookup.Font.Style = []
+      Lookup.Separator = ';'
+      Color = clWindow
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Times New Roman'
+      Font.Style = []
+      MaxLength = 250
+      ParentFont = False
+      TabOrder = 5
+      Text = ''
+      Visible = True
+      Version = '3.3.2.8'
+      DataField = 'CEDULA'
+      DataSource = DsData
+    end
+    object AdvDBDateTimePicker1: TAdvDBDateTimePicker
+      Left = 144
+      Top = 198
+      Width = 209
+      Height = 35
+      Constraints.MinHeight = 35
+      Date = 44222.970277777780000000
+      Format = ''
+      Time = 44222.970277777780000000
+      DoubleBuffered = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Kind = dkDateTime
+      ParentDoubleBuffered = False
+      ParentFont = False
+      TabOrder = 6
+      TabStop = True
+      BorderStyle = bsSingle
+      Ctl3D = True
+      DateTime = 44222.970277777780000000
+      Version = '1.2.2.0'
+      LabelCaption = 'Fecha de Ingreso.:'
+      LabelPosition = lpLeftCenter
+      LabelFont.Charset = DEFAULT_CHARSET
+      LabelFont.Color = clWindowText
+      LabelFont.Height = -13
+      LabelFont.Name = 'Tahoma'
+      LabelFont.Style = []
+    end
+  end
+  object CRDBGrid1: TCRDBGrid
+    Left = 465
+    Top = 0
+    Width = 502
+    Height = 435
+    OptionsEx = [dgeEnableSort, dgeLocalFilter, dgeLocalSorting, dgeRecordCount, dgeStretch]
+    Align = alClient
+    DataSource = DsData
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ID'
+        Width = 84
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOMBRES'
+        Width = 166
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'APELLIDOS'
+        Width = 166
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CEDULA'
+        Width = 66
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'COMISION'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FECHA_INGRESO'
+        Width = 88
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FECHA_SALIDA'
+        Width = 79
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TANDAN'
+        Width = 34
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'STATUS'
+        Width = 37
+        Visible = True
+      end>
+  end
+  object DsData: TDataSource
+    AutoEdit = False
+    DataSet = qData
+    Left = 664
+    Top = 176
+  end
+  object qData: TUniQuery
+    Connection = DM.DBNLND
+    SQL.Strings = (
+      'SELECT * FROM EMPLEADOS')
+    AfterInsert = qDataAfterInsert
+    BeforePost = qDataBeforePost
+    OnCalcFields = qDataCalcFields
+    Left = 584
+    Top = 184
+    object qDataID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 12
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object qDataNOMBRES: TStringField
+      DisplayLabel = 'Nombres'
+      DisplayWidth = 40
+      FieldName = 'NOMBRES'
+      Size = 250
+    end
+    object qDataAPELLIDOS: TStringField
+      DisplayLabel = 'Apellidos'
+      DisplayWidth = 40
+      FieldName = 'APELLIDOS'
+      Size = 250
+    end
+    object qDataCEDULA: TStringField
+      DisplayLabel = 'C'#233'dula'
+      DisplayWidth = 40
+      FieldName = 'CEDULA'
+      Size = 250
+    end
+    object qDataTANDA: TIntegerField
+      FieldName = 'TANDA'
+      Visible = False
+    end
+    object qDataCOMISION: TSingleField
+      DisplayLabel = '% Comisi'#243'n'
+      FieldName = 'COMISION'
+    end
+    object qDataFECHA_INGRESO: TDateField
+      DisplayLabel = 'Fecha de Ingreso'
+      DisplayWidth = 1
+      FieldName = 'FECHA_INGRESO'
+    end
+    object qDataFECHA_SALIDA: TDateField
+      DisplayLabel = 'Fecha de Salida'
+      DisplayWidth = 1
+      FieldName = 'FECHA_SALIDA'
+    end
+    object qDataESTADO: TIntegerField
+      FieldName = 'ESTADO'
+      Visible = False
+    end
+    object qDataTANDAN: TStringField
+      DisplayLabel = 'Tanda'
+      DisplayWidth = 2
+      FieldKind = fkCalculated
+      FieldName = 'TANDAN'
+      Calculated = True
+    end
+    object qDataSTATUS: TStringField
+      DisplayLabel = 'Estado'
+      DisplayWidth = 2
+      FieldKind = fkCalculated
+      FieldName = 'STATUS'
+      Calculated = True
+    end
+  end
+end

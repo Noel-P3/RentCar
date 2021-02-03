@@ -1,5 +1,5 @@
 # RentCar
-Una aplicacion para rentar vehiculos
+Una aplicacion para rentar vehiculos hecho en Delphi XE8
 
 Para poder compilar este proyecto hecho en delphi version XE8 necesitaran algunas dependencias bastantes especificas
 

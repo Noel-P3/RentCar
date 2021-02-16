@@ -17,4 +17,8 @@ https://github.com/Noel-P3/RentCar/tree/main/Inicializar%20base%20de%20datos
 
 Si tienen la base de datos en su maquina local, pueden proceder a usar la aplicacion :D
 
+Para ejecutar la aplicacion que esta localizada eb https://github.com/Noel-P3/RentCar/blob/main/Win32/Debug/RentCar.exe necesitan tomar en cuenta que el DBProvider.xml apunte a la ip donde esta la base de datos ejecutando en mi caso es la local osea 127.0.0.1...
+
+La base de datos tiene que llamarse *RentCar* o si no, no funcionara
+
 PD: Soy nuevo en esto de publicar proyectos
